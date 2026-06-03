@@ -1,90 +1,2590 @@
-# netscaler-vip-emulator-for-ng1 — mock VPX data
-# Edit VIPs/pools/members here; no rebuild needed (volume-mounted)
+# netscaler-vip-emulator-for-ng1 — mock VPX data (100 entries)
+# Auto-generated for nG1 BIG-IP Discovery import test
 
 nsip: 192.168.30.150
 
 lbvservers:
-  - name: vip-WEB-80
+  - name: vip-WEB-80-001
     ipv46: 10.10.20.10
     port: 80
     servicetype: HTTP
     curstate: UP
     lbmethod: ROUNDROBIN
-    comment: "Web frontend VIP"
-    servicegroup: sp-WEB-80
+    comment: "WEB service VIP 001"
+    servicegroup: sp-WEB-80-001
 
-  - name: vip-API-443
+  - name: vip-API-443-002
     ipv46: 10.10.20.11
     port: 443
     servicetype: SSL
     curstate: UP
     lbmethod: LEASTCONNECTION
-    comment: "API gateway VIP"
-    servicegroup: sp-API-443
+    comment: "API service VIP 002"
+    servicegroup: sp-API-443-002
 
-  - name: vip-OMNIS-8080
-    ipv46: 10.10.20.20
+  - name: vip-DB-8080-003
+    ipv46: 10.10.20.12
     port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "DB service VIP 003"
+    servicegroup: sp-DB-8080-003
+
+  - name: vip-APP-5061-004
+    ipv46: 10.10.20.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "APP service VIP 004"
+    servicegroup: sp-APP-5061-004
+
+  - name: vip-AUTH-8443-005
+    ipv46: 10.10.20.14
+    port: 8443
     servicetype: HTTP
     curstate: UP
     lbmethod: ROUNDROBIN
-    comment: "OMNIS dashboard VIP"
-    servicegroup: sp-OMNIS-8080
+    comment: "AUTH service VIP 005"
+    servicegroup: sp-AUTH-8443-005
 
-  - name: vip-SKYPE-5061
-    ipv46: 10.10.20.30
+  - name: vip-PROXY-3389-006
+    ipv46: 10.10.20.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "PROXY service VIP 006"
+    servicegroup: sp-PROXY-3389-006
+
+  - name: vip-CACHE-514-007
+    ipv46: 10.10.20.16
+    port: 514
+    servicetype: UDP
+    curstate: DOWN
+    lbmethod: LEASTRESPONSETIME
+    comment: "CACHE service VIP 007"
+    servicegroup: sp-CACHE-514-007
+
+  - name: vip-MAIL-8000-008
+    ipv46: 10.10.20.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "MAIL service VIP 008"
+    servicegroup: sp-MAIL-8000-008
+
+  - name: vip-VPN-9443-009
+    ipv46: 10.10.20.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "VPN service VIP 009"
+    servicegroup: sp-VPN-9443-009
+
+  - name: vip-MON-1433-010
+    ipv46: 10.10.20.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MON service VIP 010"
+    servicegroup: sp-MON-1433-010
+
+  - name: vip-SIP-80-011
+    ipv46: 10.10.21.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "SIP service VIP 011"
+    servicegroup: sp-SIP-80-011
+
+  - name: vip-LDAP-443-012
+    ipv46: 10.10.21.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "LDAP service VIP 012"
+    servicegroup: sp-LDAP-443-012
+
+  - name: vip-RADIUS-8080-013
+    ipv46: 10.10.21.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "RADIUS service VIP 013"
+    servicegroup: sp-RADIUS-8080-013
+
+  - name: vip-MGMT-5061-014
+    ipv46: 10.10.21.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: DOWN
+    lbmethod: LEASTCONNECTION
+    comment: "MGMT service VIP 014"
+    servicegroup: sp-MGMT-5061-014
+
+  - name: vip-STREAM-8443-015
+    ipv46: 10.10.21.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "STREAM service VIP 015"
+    servicegroup: sp-STREAM-8443-015
+
+  - name: vip-PRINT-3389-016
+    ipv46: 10.10.21.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "PRINT service VIP 016"
+    servicegroup: sp-PRINT-3389-016
+
+  - name: vip-FILE-514-017
+    ipv46: 10.10.21.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "FILE service VIP 017"
+    servicegroup: sp-FILE-514-017
+
+  - name: vip-BACKUP-8000-018
+    ipv46: 10.10.21.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "BACKUP service VIP 018"
+    servicegroup: sp-BACKUP-8000-018
+
+  - name: vip-LOG-9443-019
+    ipv46: 10.10.21.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "LOG service VIP 019"
+    servicegroup: sp-LOG-9443-019
+
+  - name: vip-NTP-1433-020
+    ipv46: 10.10.21.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "NTP service VIP 020"
+    servicegroup: sp-NTP-1433-020
+
+  - name: vip-WEB-80-021
+    ipv46: 10.10.22.10
+    port: 80
+    servicetype: HTTP
+    curstate: DOWN
+    lbmethod: ROUNDROBIN
+    comment: "WEB service VIP 021"
+    servicegroup: sp-WEB-80-021
+
+  - name: vip-API-443-022
+    ipv46: 10.10.22.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "API service VIP 022"
+    servicegroup: sp-API-443-022
+
+  - name: vip-DB-8080-023
+    ipv46: 10.10.22.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "DB service VIP 023"
+    servicegroup: sp-DB-8080-023
+
+  - name: vip-APP-5061-024
+    ipv46: 10.10.22.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "APP service VIP 024"
+    servicegroup: sp-APP-5061-024
+
+  - name: vip-AUTH-8443-025
+    ipv46: 10.10.22.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "AUTH service VIP 025"
+    servicegroup: sp-AUTH-8443-025
+
+  - name: vip-PROXY-3389-026
+    ipv46: 10.10.22.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "PROXY service VIP 026"
+    servicegroup: sp-PROXY-3389-026
+
+  - name: vip-CACHE-514-027
+    ipv46: 10.10.22.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "CACHE service VIP 027"
+    servicegroup: sp-CACHE-514-027
+
+  - name: vip-MAIL-8000-028
+    ipv46: 10.10.22.17
+    port: 8000
+    servicetype: HTTP
+    curstate: DOWN
+    lbmethod: SOURCEIPHASH
+    comment: "MAIL service VIP 028"
+    servicegroup: sp-MAIL-8000-028
+
+  - name: vip-VPN-9443-029
+    ipv46: 10.10.22.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "VPN service VIP 029"
+    servicegroup: sp-VPN-9443-029
+
+  - name: vip-MON-1433-030
+    ipv46: 10.10.22.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MON service VIP 030"
+    servicegroup: sp-MON-1433-030
+
+  - name: vip-SIP-80-031
+    ipv46: 10.10.23.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "SIP service VIP 031"
+    servicegroup: sp-SIP-80-031
+
+  - name: vip-LDAP-443-032
+    ipv46: 10.10.23.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "LDAP service VIP 032"
+    servicegroup: sp-LDAP-443-032
+
+  - name: vip-RADIUS-8080-033
+    ipv46: 10.10.23.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "RADIUS service VIP 033"
+    servicegroup: sp-RADIUS-8080-033
+
+  - name: vip-MGMT-5061-034
+    ipv46: 10.10.23.13
     port: 5061
     servicetype: SSL_TCP
     curstate: UP
     lbmethod: LEASTCONNECTION
-    comment: "Skype for Business SIP/TLS VIP"
-    servicegroup: sp-SKYPE-5061
+    comment: "MGMT service VIP 034"
+    servicegroup: sp-MGMT-5061-034
+
+  - name: vip-STREAM-8443-035
+    ipv46: 10.10.23.14
+    port: 8443
+    servicetype: HTTP
+    curstate: DOWN
+    lbmethod: LEASTRESPONSETIME
+    comment: "STREAM service VIP 035"
+    servicegroup: sp-STREAM-8443-035
+
+  - name: vip-PRINT-3389-036
+    ipv46: 10.10.23.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "PRINT service VIP 036"
+    servicegroup: sp-PRINT-3389-036
+
+  - name: vip-FILE-514-037
+    ipv46: 10.10.23.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "FILE service VIP 037"
+    servicegroup: sp-FILE-514-037
+
+  - name: vip-BACKUP-8000-038
+    ipv46: 10.10.23.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "BACKUP service VIP 038"
+    servicegroup: sp-BACKUP-8000-038
+
+  - name: vip-LOG-9443-039
+    ipv46: 10.10.23.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "LOG service VIP 039"
+    servicegroup: sp-LOG-9443-039
+
+  - name: vip-NTP-1433-040
+    ipv46: 10.10.23.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "NTP service VIP 040"
+    servicegroup: sp-NTP-1433-040
+
+  - name: vip-WEB-80-041
+    ipv46: 10.10.24.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "WEB service VIP 041"
+    servicegroup: sp-WEB-80-041
+
+  - name: vip-API-443-042
+    ipv46: 10.10.24.11
+    port: 443
+    servicetype: SSL
+    curstate: DOWN
+    lbmethod: LEASTCONNECTION
+    comment: "API service VIP 042"
+    servicegroup: sp-API-443-042
+
+  - name: vip-DB-8080-043
+    ipv46: 10.10.24.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "DB service VIP 043"
+    servicegroup: sp-DB-8080-043
+
+  - name: vip-APP-5061-044
+    ipv46: 10.10.24.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "APP service VIP 044"
+    servicegroup: sp-APP-5061-044
+
+  - name: vip-AUTH-8443-045
+    ipv46: 10.10.24.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "AUTH service VIP 045"
+    servicegroup: sp-AUTH-8443-045
+
+  - name: vip-PROXY-3389-046
+    ipv46: 10.10.24.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "PROXY service VIP 046"
+    servicegroup: sp-PROXY-3389-046
+
+  - name: vip-CACHE-514-047
+    ipv46: 10.10.24.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "CACHE service VIP 047"
+    servicegroup: sp-CACHE-514-047
+
+  - name: vip-MAIL-8000-048
+    ipv46: 10.10.24.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "MAIL service VIP 048"
+    servicegroup: sp-MAIL-8000-048
+
+  - name: vip-VPN-9443-049
+    ipv46: 10.10.24.18
+    port: 9443
+    servicetype: SSL
+    curstate: DOWN
+    lbmethod: ROUNDROBIN
+    comment: "VPN service VIP 049"
+    servicegroup: sp-VPN-9443-049
+
+  - name: vip-MON-1433-050
+    ipv46: 10.10.24.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MON service VIP 050"
+    servicegroup: sp-MON-1433-050
+
+  - name: vip-SIP-80-051
+    ipv46: 10.10.25.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "SIP service VIP 051"
+    servicegroup: sp-SIP-80-051
+
+  - name: vip-LDAP-443-052
+    ipv46: 10.10.25.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "LDAP service VIP 052"
+    servicegroup: sp-LDAP-443-052
+
+  - name: vip-RADIUS-8080-053
+    ipv46: 10.10.25.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "RADIUS service VIP 053"
+    servicegroup: sp-RADIUS-8080-053
+
+  - name: vip-MGMT-5061-054
+    ipv46: 10.10.25.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MGMT service VIP 054"
+    servicegroup: sp-MGMT-5061-054
+
+  - name: vip-STREAM-8443-055
+    ipv46: 10.10.25.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "STREAM service VIP 055"
+    servicegroup: sp-STREAM-8443-055
+
+  - name: vip-PRINT-3389-056
+    ipv46: 10.10.25.15
+    port: 3389
+    servicetype: TCP
+    curstate: DOWN
+    lbmethod: SOURCEIPHASH
+    comment: "PRINT service VIP 056"
+    servicegroup: sp-PRINT-3389-056
+
+  - name: vip-FILE-514-057
+    ipv46: 10.10.25.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "FILE service VIP 057"
+    servicegroup: sp-FILE-514-057
+
+  - name: vip-BACKUP-8000-058
+    ipv46: 10.10.25.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "BACKUP service VIP 058"
+    servicegroup: sp-BACKUP-8000-058
+
+  - name: vip-LOG-9443-059
+    ipv46: 10.10.25.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "LOG service VIP 059"
+    servicegroup: sp-LOG-9443-059
+
+  - name: vip-NTP-1433-060
+    ipv46: 10.10.25.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "NTP service VIP 060"
+    servicegroup: sp-NTP-1433-060
+
+  - name: vip-WEB-80-061
+    ipv46: 10.10.26.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "WEB service VIP 061"
+    servicegroup: sp-WEB-80-061
+
+  - name: vip-API-443-062
+    ipv46: 10.10.26.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "API service VIP 062"
+    servicegroup: sp-API-443-062
+
+  - name: vip-DB-8080-063
+    ipv46: 10.10.26.12
+    port: 8080
+    servicetype: TCP
+    curstate: DOWN
+    lbmethod: LEASTRESPONSETIME
+    comment: "DB service VIP 063"
+    servicegroup: sp-DB-8080-063
+
+  - name: vip-APP-5061-064
+    ipv46: 10.10.26.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "APP service VIP 064"
+    servicegroup: sp-APP-5061-064
+
+  - name: vip-AUTH-8443-065
+    ipv46: 10.10.26.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "AUTH service VIP 065"
+    servicegroup: sp-AUTH-8443-065
+
+  - name: vip-PROXY-3389-066
+    ipv46: 10.10.26.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "PROXY service VIP 066"
+    servicegroup: sp-PROXY-3389-066
+
+  - name: vip-CACHE-514-067
+    ipv46: 10.10.26.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "CACHE service VIP 067"
+    servicegroup: sp-CACHE-514-067
+
+  - name: vip-MAIL-8000-068
+    ipv46: 10.10.26.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "MAIL service VIP 068"
+    servicegroup: sp-MAIL-8000-068
+
+  - name: vip-VPN-9443-069
+    ipv46: 10.10.26.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "VPN service VIP 069"
+    servicegroup: sp-VPN-9443-069
+
+  - name: vip-MON-1433-070
+    ipv46: 10.10.26.19
+    port: 1433
+    servicetype: TCP
+    curstate: DOWN
+    lbmethod: LEASTCONNECTION
+    comment: "MON service VIP 070"
+    servicegroup: sp-MON-1433-070
+
+  - name: vip-SIP-80-071
+    ipv46: 10.10.27.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "SIP service VIP 071"
+    servicegroup: sp-SIP-80-071
+
+  - name: vip-LDAP-443-072
+    ipv46: 10.10.27.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "LDAP service VIP 072"
+    servicegroup: sp-LDAP-443-072
+
+  - name: vip-RADIUS-8080-073
+    ipv46: 10.10.27.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "RADIUS service VIP 073"
+    servicegroup: sp-RADIUS-8080-073
+
+  - name: vip-MGMT-5061-074
+    ipv46: 10.10.27.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MGMT service VIP 074"
+    servicegroup: sp-MGMT-5061-074
+
+  - name: vip-STREAM-8443-075
+    ipv46: 10.10.27.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "STREAM service VIP 075"
+    servicegroup: sp-STREAM-8443-075
+
+  - name: vip-PRINT-3389-076
+    ipv46: 10.10.27.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "PRINT service VIP 076"
+    servicegroup: sp-PRINT-3389-076
+
+  - name: vip-FILE-514-077
+    ipv46: 10.10.27.16
+    port: 514
+    servicetype: UDP
+    curstate: DOWN
+    lbmethod: ROUNDROBIN
+    comment: "FILE service VIP 077"
+    servicegroup: sp-FILE-514-077
+
+  - name: vip-BACKUP-8000-078
+    ipv46: 10.10.27.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "BACKUP service VIP 078"
+    servicegroup: sp-BACKUP-8000-078
+
+  - name: vip-LOG-9443-079
+    ipv46: 10.10.27.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "LOG service VIP 079"
+    servicegroup: sp-LOG-9443-079
+
+  - name: vip-NTP-1433-080
+    ipv46: 10.10.27.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "NTP service VIP 080"
+    servicegroup: sp-NTP-1433-080
+
+  - name: vip-WEB-80-081
+    ipv46: 10.10.28.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "WEB service VIP 081"
+    servicegroup: sp-WEB-80-081
+
+  - name: vip-API-443-082
+    ipv46: 10.10.28.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "API service VIP 082"
+    servicegroup: sp-API-443-082
+
+  - name: vip-DB-8080-083
+    ipv46: 10.10.28.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "DB service VIP 083"
+    servicegroup: sp-DB-8080-083
+
+  - name: vip-APP-5061-084
+    ipv46: 10.10.28.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: DOWN
+    lbmethod: SOURCEIPHASH
+    comment: "APP service VIP 084"
+    servicegroup: sp-APP-5061-084
+
+  - name: vip-AUTH-8443-085
+    ipv46: 10.10.28.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "AUTH service VIP 085"
+    servicegroup: sp-AUTH-8443-085
+
+  - name: vip-PROXY-3389-086
+    ipv46: 10.10.28.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "PROXY service VIP 086"
+    servicegroup: sp-PROXY-3389-086
+
+  - name: vip-CACHE-514-087
+    ipv46: 10.10.28.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "CACHE service VIP 087"
+    servicegroup: sp-CACHE-514-087
+
+  - name: vip-MAIL-8000-088
+    ipv46: 10.10.28.17
+    port: 8000
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "MAIL service VIP 088"
+    servicegroup: sp-MAIL-8000-088
+
+  - name: vip-VPN-9443-089
+    ipv46: 10.10.28.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "VPN service VIP 089"
+    servicegroup: sp-VPN-9443-089
+
+  - name: vip-MON-1433-090
+    ipv46: 10.10.28.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MON service VIP 090"
+    servicegroup: sp-MON-1433-090
+
+  - name: vip-SIP-80-091
+    ipv46: 10.10.29.10
+    port: 80
+    servicetype: HTTP
+    curstate: DOWN
+    lbmethod: LEASTRESPONSETIME
+    comment: "SIP service VIP 091"
+    servicegroup: sp-SIP-80-091
+
+  - name: vip-LDAP-443-092
+    ipv46: 10.10.29.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "LDAP service VIP 092"
+    servicegroup: sp-LDAP-443-092
+
+  - name: vip-RADIUS-8080-093
+    ipv46: 10.10.29.12
+    port: 8080
+    servicetype: TCP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "RADIUS service VIP 093"
+    servicegroup: sp-RADIUS-8080-093
+
+  - name: vip-MGMT-5061-094
+    ipv46: 10.10.29.13
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "MGMT service VIP 094"
+    servicegroup: sp-MGMT-5061-094
+
+  - name: vip-STREAM-8443-095
+    ipv46: 10.10.29.14
+    port: 8443
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "STREAM service VIP 095"
+    servicegroup: sp-STREAM-8443-095
+
+  - name: vip-PRINT-3389-096
+    ipv46: 10.10.29.15
+    port: 3389
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "PRINT service VIP 096"
+    servicegroup: sp-PRINT-3389-096
+
+  - name: vip-FILE-514-097
+    ipv46: 10.10.29.16
+    port: 514
+    servicetype: UDP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "FILE service VIP 097"
+    servicegroup: sp-FILE-514-097
+
+  - name: vip-BACKUP-8000-098
+    ipv46: 10.10.29.17
+    port: 8000
+    servicetype: HTTP
+    curstate: DOWN
+    lbmethod: LEASTCONNECTION
+    comment: "BACKUP service VIP 098"
+    servicegroup: sp-BACKUP-8000-098
+
+  - name: vip-LOG-9443-099
+    ipv46: 10.10.29.18
+    port: 9443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTRESPONSETIME
+    comment: "LOG service VIP 099"
+    servicegroup: sp-LOG-9443-099
+
+  - name: vip-NTP-1433-100
+    ipv46: 10.10.29.19
+    port: 1433
+    servicetype: TCP
+    curstate: UP
+    lbmethod: SOURCEIPHASH
+    comment: "NTP service VIP 100"
+    servicegroup: sp-NTP-1433-100
 
 servicegroups:
-  - name: sp-WEB-80
+  - name: sp-WEB-80-001
     servicetype: HTTP
+    lbmethod: ROUNDROBIN
     members:
-      - servername: web1
+      - servername: srv-web001-01
         ip: 192.168.30.101
         port: 80
         svrstate: UP
-      - servername: web2
+      - servername: srv-web001-02
         ip: 192.168.30.102
         port: 80
         svrstate: UP
+      - servername: srv-web001-03
+        ip: 192.168.30.103
+        port: 80
+        svrstate: UP
+      - servername: srv-web001-04
+        ip: 192.168.30.104
+        port: 80
+        svrstate: UP
 
-  - name: sp-API-443
+  - name: sp-API-443-002
     servicetype: SSL
+    lbmethod: LEASTCONNECTION
     members:
-      - servername: api1
-        ip: 192.168.30.110
+      - servername: srv-api002-01
+        ip: 192.168.30.105
         port: 443
         svrstate: UP
-      - servername: api2
-        ip: 192.168.30.111
+      - servername: srv-api002-02
+        ip: 192.168.30.106
         port: 443
+        svrstate: UP
+
+  - name: sp-DB-8080-003
+    servicetype: TCP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-db003-01
+        ip: 192.168.30.109
+        port: 8080
+        svrstate: UP
+      - servername: srv-db003-02
+        ip: 192.168.30.110
+        port: 8080
+        svrstate: UP
+
+  - name: sp-APP-5061-004
+    servicetype: SSL_TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-app004-01
+        ip: 192.168.30.113
+        port: 5061
+        svrstate: UP
+      - servername: srv-app004-02
+        ip: 192.168.30.114
+        port: 5061
+        svrstate: UP
+      - servername: srv-app004-03
+        ip: 192.168.30.115
+        port: 5061
+        svrstate: UP
+      - servername: srv-app004-04
+        ip: 192.168.30.116
+        port: 5061
+        svrstate: UP
+
+  - name: sp-AUTH-8443-005
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-auth005-01
+        ip: 192.168.30.117
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth005-02
+        ip: 192.168.30.118
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth005-03
+        ip: 192.168.30.119
+        port: 8443
         svrstate: DOWN
 
-  - name: sp-OMNIS-8080
-    servicetype: HTTP
+  - name: sp-PROXY-3389-006
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
     members:
-      - servername: omnis1
-        ip: 192.168.30.32
+      - servername: srv-proxy006-01
+        ip: 192.168.30.121
+        port: 3389
+        svrstate: UP
+      - servername: srv-proxy006-02
+        ip: 192.168.30.122
+        port: 3389
+        svrstate: UP
+
+  - name: sp-CACHE-514-007
+    servicetype: UDP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-cache007-01
+        ip: 192.168.30.125
+        port: 514
+        svrstate: UP
+      - servername: srv-cache007-02
+        ip: 192.168.30.126
+        port: 514
+        svrstate: UP
+
+  - name: sp-MAIL-8000-008
+    servicetype: HTTP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-mail008-01
+        ip: 192.168.30.129
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail008-02
+        ip: 192.168.30.130
+        port: 8000
+        svrstate: UP
+
+  - name: sp-VPN-9443-009
+    servicetype: SSL
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-vpn009-01
+        ip: 192.168.30.133
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn009-02
+        ip: 192.168.30.134
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn009-03
+        ip: 192.168.30.135
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn009-04
+        ip: 192.168.30.136
+        port: 9443
+        svrstate: UP
+
+  - name: sp-MON-1433-010
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mon010-01
+        ip: 192.168.30.137
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon010-02
+        ip: 192.168.30.138
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-SIP-80-011
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-sip011-01
+        ip: 192.168.30.141
+        port: 80
+        svrstate: UP
+      - servername: srv-sip011-02
+        ip: 192.168.30.142
+        port: 80
+        svrstate: UP
+      - servername: srv-sip011-03
+        ip: 192.168.30.143
+        port: 80
+        svrstate: UP
+      - servername: srv-sip011-04
+        ip: 192.168.30.144
+        port: 80
+        svrstate: UP
+
+  - name: sp-LDAP-443-012
+    servicetype: SSL
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ldap012-01
+        ip: 192.168.30.145
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap012-02
+        ip: 192.168.30.146
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap012-03
+        ip: 192.168.30.147
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap012-04
+        ip: 192.168.30.148
+        port: 443
+        svrstate: UP
+
+  - name: sp-RADIUS-8080-013
+    servicetype: TCP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-radius013-01
+        ip: 192.168.30.149
         port: 8080
         svrstate: UP
-      - servername: omnis2
-        ip: 192.168.30.33
+      - servername: srv-radius013-02
+        ip: 192.168.30.150
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius013-03
+        ip: 192.168.30.151
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius013-04
+        ip: 192.168.30.152
         port: 8080
         svrstate: UP
 
-  - name: sp-SKYPE-5061
+  - name: sp-MGMT-5061-014
     servicetype: SSL_TCP
+    lbmethod: LEASTCONNECTION
     members:
-      - servername: sfb1
+      - servername: srv-mgmt014-01
+        ip: 192.168.30.153
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt014-02
+        ip: 192.168.30.154
+        port: 5061
+        svrstate: UP
+
+  - name: sp-STREAM-8443-015
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-stream015-01
+        ip: 192.168.30.157
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream015-02
+        ip: 192.168.30.158
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream015-03
+        ip: 192.168.30.159
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream015-04
+        ip: 192.168.30.160
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PRINT-3389-016
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-print016-01
+        ip: 192.168.30.161
+        port: 3389
+        svrstate: UP
+      - servername: srv-print016-02
+        ip: 192.168.30.162
+        port: 3389
+        svrstate: UP
+      - servername: srv-print016-03
+        ip: 192.168.30.163
+        port: 3389
+        svrstate: UP
+
+  - name: sp-FILE-514-017
+    servicetype: UDP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-file017-01
+        ip: 192.168.30.165
+        port: 514
+        svrstate: UP
+      - servername: srv-file017-02
+        ip: 192.168.30.166
+        port: 514
+        svrstate: UP
+
+  - name: sp-BACKUP-8000-018
+    servicetype: HTTP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-backup018-01
+        ip: 192.168.30.169
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup018-02
+        ip: 192.168.30.170
+        port: 8000
+        svrstate: UP
+
+  - name: sp-LOG-9443-019
+    servicetype: SSL
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-log019-01
+        ip: 192.168.30.173
+        port: 9443
+        svrstate: UP
+      - servername: srv-log019-02
+        ip: 192.168.30.174
+        port: 9443
+        svrstate: UP
+
+  - name: sp-NTP-1433-020
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ntp020-01
+        ip: 192.168.30.177
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp020-02
+        ip: 192.168.30.178
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-WEB-80-021
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-web021-01
+        ip: 192.168.30.181
+        port: 80
+        svrstate: UP
+      - servername: srv-web021-02
+        ip: 192.168.30.182
+        port: 80
+        svrstate: UP
+
+  - name: sp-API-443-022
+    servicetype: SSL
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-api022-01
+        ip: 192.168.30.185
+        port: 443
+        svrstate: UP
+      - servername: srv-api022-02
+        ip: 192.168.30.186
+        port: 443
+        svrstate: UP
+      - servername: srv-api022-03
+        ip: 192.168.30.187
+        port: 443
+        svrstate: UP
+      - servername: srv-api022-04
+        ip: 192.168.30.188
+        port: 443
+        svrstate: UP
+
+  - name: sp-DB-8080-023
+    servicetype: TCP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-db023-01
+        ip: 192.168.30.189
+        port: 8080
+        svrstate: UP
+      - servername: srv-db023-02
+        ip: 192.168.30.190
+        port: 8080
+        svrstate: UP
+      - servername: srv-db023-03
+        ip: 192.168.30.191
+        port: 8080
+        svrstate: UP
+      - servername: srv-db023-04
+        ip: 192.168.30.192
+        port: 8080
+        svrstate: UP
+
+  - name: sp-APP-5061-024
+    servicetype: SSL_TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-app024-01
+        ip: 192.168.30.193
+        port: 5061
+        svrstate: UP
+      - servername: srv-app024-02
+        ip: 192.168.30.194
+        port: 5061
+        svrstate: UP
+
+  - name: sp-AUTH-8443-025
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-auth025-01
+        ip: 192.168.30.197
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth025-02
+        ip: 192.168.30.198
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth025-03
+        ip: 192.168.30.199
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth025-04
+        ip: 192.168.30.100
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PROXY-3389-026
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-proxy026-01
+        ip: 192.168.30.101
+        port: 3389
+        svrstate: UP
+      - servername: srv-proxy026-02
+        ip: 192.168.30.102
+        port: 3389
+        svrstate: UP
+
+  - name: sp-CACHE-514-027
+    servicetype: UDP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-cache027-01
+        ip: 192.168.30.105
+        port: 514
+        svrstate: UP
+      - servername: srv-cache027-02
+        ip: 192.168.30.106
+        port: 514
+        svrstate: UP
+      - servername: srv-cache027-03
+        ip: 192.168.30.107
+        port: 514
+        svrstate: UP
+      - servername: srv-cache027-04
+        ip: 192.168.30.108
+        port: 514
+        svrstate: UP
+
+  - name: sp-MAIL-8000-028
+    servicetype: HTTP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-mail028-01
+        ip: 192.168.30.109
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail028-02
+        ip: 192.168.30.110
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail028-03
+        ip: 192.168.30.111
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail028-04
+        ip: 192.168.30.112
+        port: 8000
+        svrstate: UP
+
+  - name: sp-VPN-9443-029
+    servicetype: SSL
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-vpn029-01
+        ip: 192.168.30.113
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn029-02
+        ip: 192.168.30.114
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn029-03
+        ip: 192.168.30.115
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn029-04
+        ip: 192.168.30.116
+        port: 9443
+        svrstate: UP
+
+  - name: sp-MON-1433-030
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mon030-01
+        ip: 192.168.30.117
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon030-02
+        ip: 192.168.30.118
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon030-03
+        ip: 192.168.30.119
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon030-04
         ip: 192.168.30.120
-        port: 5061
-        svrstate: UP
-      - servername: sfb2
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-SIP-80-031
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-sip031-01
         ip: 192.168.30.121
+        port: 80
+        svrstate: UP
+      - servername: srv-sip031-02
+        ip: 192.168.30.122
+        port: 80
+        svrstate: UP
+      - servername: srv-sip031-03
+        ip: 192.168.30.123
+        port: 80
+        svrstate: UP
+
+  - name: sp-LDAP-443-032
+    servicetype: SSL
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ldap032-01
+        ip: 192.168.30.125
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap032-02
+        ip: 192.168.30.126
+        port: 443
+        svrstate: UP
+
+  - name: sp-RADIUS-8080-033
+    servicetype: TCP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-radius033-01
+        ip: 192.168.30.129
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius033-02
+        ip: 192.168.30.130
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius033-03
+        ip: 192.168.30.131
+        port: 8080
+        svrstate: UP
+
+  - name: sp-MGMT-5061-034
+    servicetype: SSL_TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mgmt034-01
+        ip: 192.168.30.133
         port: 5061
         svrstate: UP
+      - servername: srv-mgmt034-02
+        ip: 192.168.30.134
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt034-03
+        ip: 192.168.30.135
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt034-04
+        ip: 192.168.30.136
+        port: 5061
+        svrstate: UP
+
+  - name: sp-STREAM-8443-035
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-stream035-01
+        ip: 192.168.30.137
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream035-02
+        ip: 192.168.30.138
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream035-03
+        ip: 192.168.30.139
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PRINT-3389-036
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-print036-01
+        ip: 192.168.30.141
+        port: 3389
+        svrstate: UP
+      - servername: srv-print036-02
+        ip: 192.168.30.142
+        port: 3389
+        svrstate: UP
+
+  - name: sp-FILE-514-037
+    servicetype: UDP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-file037-01
+        ip: 192.168.30.145
+        port: 514
+        svrstate: UP
+      - servername: srv-file037-02
+        ip: 192.168.30.146
+        port: 514
+        svrstate: UP
+
+  - name: sp-BACKUP-8000-038
+    servicetype: HTTP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-backup038-01
+        ip: 192.168.30.149
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup038-02
+        ip: 192.168.30.150
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup038-03
+        ip: 192.168.30.151
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup038-04
+        ip: 192.168.30.152
+        port: 8000
+        svrstate: UP
+
+  - name: sp-LOG-9443-039
+    servicetype: SSL
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-log039-01
+        ip: 192.168.30.153
+        port: 9443
+        svrstate: UP
+      - servername: srv-log039-02
+        ip: 192.168.30.154
+        port: 9443
+        svrstate: UP
+      - servername: srv-log039-03
+        ip: 192.168.30.155
+        port: 9443
+        svrstate: UP
+
+  - name: sp-NTP-1433-040
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ntp040-01
+        ip: 192.168.30.157
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp040-02
+        ip: 192.168.30.158
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp040-03
+        ip: 192.168.30.159
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-WEB-80-041
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-web041-01
+        ip: 192.168.30.161
+        port: 80
+        svrstate: UP
+      - servername: srv-web041-02
+        ip: 192.168.30.162
+        port: 80
+        svrstate: UP
+      - servername: srv-web041-03
+        ip: 192.168.30.163
+        port: 80
+        svrstate: UP
+
+  - name: sp-API-443-042
+    servicetype: SSL
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-api042-01
+        ip: 192.168.30.165
+        port: 443
+        svrstate: UP
+      - servername: srv-api042-02
+        ip: 192.168.30.166
+        port: 443
+        svrstate: UP
+
+  - name: sp-DB-8080-043
+    servicetype: TCP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-db043-01
+        ip: 192.168.30.169
+        port: 8080
+        svrstate: UP
+      - servername: srv-db043-02
+        ip: 192.168.30.170
+        port: 8080
+        svrstate: UP
+
+  - name: sp-APP-5061-044
+    servicetype: SSL_TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-app044-01
+        ip: 192.168.30.173
+        port: 5061
+        svrstate: UP
+      - servername: srv-app044-02
+        ip: 192.168.30.174
+        port: 5061
+        svrstate: UP
+      - servername: srv-app044-03
+        ip: 192.168.30.175
+        port: 5061
+        svrstate: UP
+
+  - name: sp-AUTH-8443-045
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-auth045-01
+        ip: 192.168.30.177
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth045-02
+        ip: 192.168.30.178
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PROXY-3389-046
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-proxy046-01
+        ip: 192.168.30.181
+        port: 3389
+        svrstate: UP
+      - servername: srv-proxy046-02
+        ip: 192.168.30.182
+        port: 3389
+        svrstate: UP
+
+  - name: sp-CACHE-514-047
+    servicetype: UDP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-cache047-01
+        ip: 192.168.30.185
+        port: 514
+        svrstate: UP
+      - servername: srv-cache047-02
+        ip: 192.168.30.186
+        port: 514
+        svrstate: UP
+      - servername: srv-cache047-03
+        ip: 192.168.30.187
+        port: 514
+        svrstate: UP
+
+  - name: sp-MAIL-8000-048
+    servicetype: HTTP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-mail048-01
+        ip: 192.168.30.189
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail048-02
+        ip: 192.168.30.190
+        port: 8000
+        svrstate: UP
+
+  - name: sp-VPN-9443-049
+    servicetype: SSL
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-vpn049-01
+        ip: 192.168.30.193
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn049-02
+        ip: 192.168.30.194
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn049-03
+        ip: 192.168.30.195
+        port: 9443
+        svrstate: UP
+
+  - name: sp-MON-1433-050
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mon050-01
+        ip: 192.168.30.197
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon050-02
+        ip: 192.168.30.198
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon050-03
+        ip: 192.168.30.199
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-SIP-80-051
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-sip051-01
+        ip: 192.168.31.101
+        port: 80
+        svrstate: UP
+      - servername: srv-sip051-02
+        ip: 192.168.31.102
+        port: 80
+        svrstate: UP
+      - servername: srv-sip051-03
+        ip: 192.168.31.103
+        port: 80
+        svrstate: UP
+      - servername: srv-sip051-04
+        ip: 192.168.31.104
+        port: 80
+        svrstate: UP
+
+  - name: sp-LDAP-443-052
+    servicetype: SSL
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ldap052-01
+        ip: 192.168.31.105
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap052-02
+        ip: 192.168.31.106
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap052-03
+        ip: 192.168.31.107
+        port: 443
+        svrstate: UP
+
+  - name: sp-RADIUS-8080-053
+    servicetype: TCP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-radius053-01
+        ip: 192.168.31.109
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius053-02
+        ip: 192.168.31.110
+        port: 8080
+        svrstate: UP
+
+  - name: sp-MGMT-5061-054
+    servicetype: SSL_TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mgmt054-01
+        ip: 192.168.31.113
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt054-02
+        ip: 192.168.31.114
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt054-03
+        ip: 192.168.31.115
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt054-04
+        ip: 192.168.31.116
+        port: 5061
+        svrstate: UP
+
+  - name: sp-STREAM-8443-055
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-stream055-01
+        ip: 192.168.31.117
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream055-02
+        ip: 192.168.31.118
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream055-03
+        ip: 192.168.31.119
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PRINT-3389-056
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-print056-01
+        ip: 192.168.31.121
+        port: 3389
+        svrstate: UP
+      - servername: srv-print056-02
+        ip: 192.168.31.122
+        port: 3389
+        svrstate: UP
+      - servername: srv-print056-03
+        ip: 192.168.31.123
+        port: 3389
+        svrstate: UP
+      - servername: srv-print056-04
+        ip: 192.168.31.124
+        port: 3389
+        svrstate: UP
+
+  - name: sp-FILE-514-057
+    servicetype: UDP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-file057-01
+        ip: 192.168.31.125
+        port: 514
+        svrstate: UP
+      - servername: srv-file057-02
+        ip: 192.168.31.126
+        port: 514
+        svrstate: UP
+
+  - name: sp-BACKUP-8000-058
+    servicetype: HTTP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-backup058-01
+        ip: 192.168.31.129
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup058-02
+        ip: 192.168.31.130
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup058-03
+        ip: 192.168.31.131
+        port: 8000
+        svrstate: UP
+
+  - name: sp-LOG-9443-059
+    servicetype: SSL
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-log059-01
+        ip: 192.168.31.133
+        port: 9443
+        svrstate: UP
+      - servername: srv-log059-02
+        ip: 192.168.31.134
+        port: 9443
+        svrstate: UP
+
+  - name: sp-NTP-1433-060
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ntp060-01
+        ip: 192.168.31.137
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp060-02
+        ip: 192.168.31.138
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp060-03
+        ip: 192.168.31.139
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp060-04
+        ip: 192.168.31.140
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-WEB-80-061
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-web061-01
+        ip: 192.168.31.141
+        port: 80
+        svrstate: UP
+      - servername: srv-web061-02
+        ip: 192.168.31.142
+        port: 80
+        svrstate: UP
+      - servername: srv-web061-03
+        ip: 192.168.31.143
+        port: 80
+        svrstate: UP
+
+  - name: sp-API-443-062
+    servicetype: SSL
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-api062-01
+        ip: 192.168.31.145
+        port: 443
+        svrstate: UP
+      - servername: srv-api062-02
+        ip: 192.168.31.146
+        port: 443
+        svrstate: UP
+      - servername: srv-api062-03
+        ip: 192.168.31.147
+        port: 443
+        svrstate: UP
+      - servername: srv-api062-04
+        ip: 192.168.31.148
+        port: 443
+        svrstate: UP
+
+  - name: sp-DB-8080-063
+    servicetype: TCP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-db063-01
+        ip: 192.168.31.149
+        port: 8080
+        svrstate: UP
+      - servername: srv-db063-02
+        ip: 192.168.31.150
+        port: 8080
+        svrstate: UP
+      - servername: srv-db063-03
+        ip: 192.168.31.151
+        port: 8080
+        svrstate: UP
+      - servername: srv-db063-04
+        ip: 192.168.31.152
+        port: 8080
+        svrstate: UP
+
+  - name: sp-APP-5061-064
+    servicetype: SSL_TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-app064-01
+        ip: 192.168.31.153
+        port: 5061
+        svrstate: UP
+      - servername: srv-app064-02
+        ip: 192.168.31.154
+        port: 5061
+        svrstate: UP
+      - servername: srv-app064-03
+        ip: 192.168.31.155
+        port: 5061
+        svrstate: UP
+
+  - name: sp-AUTH-8443-065
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-auth065-01
+        ip: 192.168.31.157
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth065-02
+        ip: 192.168.31.158
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth065-03
+        ip: 192.168.31.159
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth065-04
+        ip: 192.168.31.160
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PROXY-3389-066
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-proxy066-01
+        ip: 192.168.31.161
+        port: 3389
+        svrstate: UP
+      - servername: srv-proxy066-02
+        ip: 192.168.31.162
+        port: 3389
+        svrstate: UP
+
+  - name: sp-CACHE-514-067
+    servicetype: UDP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-cache067-01
+        ip: 192.168.31.165
+        port: 514
+        svrstate: UP
+      - servername: srv-cache067-02
+        ip: 192.168.31.166
+        port: 514
+        svrstate: UP
+      - servername: srv-cache067-03
+        ip: 192.168.31.167
+        port: 514
+        svrstate: UP
+      - servername: srv-cache067-04
+        ip: 192.168.31.168
+        port: 514
+        svrstate: UP
+
+  - name: sp-MAIL-8000-068
+    servicetype: HTTP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-mail068-01
+        ip: 192.168.31.169
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail068-02
+        ip: 192.168.31.170
+        port: 8000
+        svrstate: UP
+
+  - name: sp-VPN-9443-069
+    servicetype: SSL
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-vpn069-01
+        ip: 192.168.31.173
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn069-02
+        ip: 192.168.31.174
+        port: 9443
+        svrstate: UP
+
+  - name: sp-MON-1433-070
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mon070-01
+        ip: 192.168.31.177
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon070-02
+        ip: 192.168.31.178
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon070-03
+        ip: 192.168.31.179
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon070-04
+        ip: 192.168.31.180
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-SIP-80-071
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-sip071-01
+        ip: 192.168.31.181
+        port: 80
+        svrstate: UP
+      - servername: srv-sip071-02
+        ip: 192.168.31.182
+        port: 80
+        svrstate: UP
+
+  - name: sp-LDAP-443-072
+    servicetype: SSL
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ldap072-01
+        ip: 192.168.31.185
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap072-02
+        ip: 192.168.31.186
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap072-03
+        ip: 192.168.31.187
+        port: 443
+        svrstate: UP
+
+  - name: sp-RADIUS-8080-073
+    servicetype: TCP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-radius073-01
+        ip: 192.168.31.189
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius073-02
+        ip: 192.168.31.190
+        port: 8080
+        svrstate: UP
+
+  - name: sp-MGMT-5061-074
+    servicetype: SSL_TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mgmt074-01
+        ip: 192.168.31.193
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt074-02
+        ip: 192.168.31.194
+        port: 5061
+        svrstate: UP
+
+  - name: sp-STREAM-8443-075
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-stream075-01
+        ip: 192.168.31.197
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream075-02
+        ip: 192.168.31.198
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PRINT-3389-076
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-print076-01
+        ip: 192.168.31.101
+        port: 3389
+        svrstate: UP
+      - servername: srv-print076-02
+        ip: 192.168.31.102
+        port: 3389
+        svrstate: UP
+      - servername: srv-print076-03
+        ip: 192.168.31.103
+        port: 3389
+        svrstate: UP
+
+  - name: sp-FILE-514-077
+    servicetype: UDP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-file077-01
+        ip: 192.168.31.105
+        port: 514
+        svrstate: UP
+      - servername: srv-file077-02
+        ip: 192.168.31.106
+        port: 514
+        svrstate: UP
+      - servername: srv-file077-03
+        ip: 192.168.31.107
+        port: 514
+        svrstate: UP
+
+  - name: sp-BACKUP-8000-078
+    servicetype: HTTP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-backup078-01
+        ip: 192.168.31.109
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup078-02
+        ip: 192.168.31.110
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup078-03
+        ip: 192.168.31.111
+        port: 8000
+        svrstate: UP
+
+  - name: sp-LOG-9443-079
+    servicetype: SSL
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-log079-01
+        ip: 192.168.31.113
+        port: 9443
+        svrstate: UP
+      - servername: srv-log079-02
+        ip: 192.168.31.114
+        port: 9443
+        svrstate: UP
+      - servername: srv-log079-03
+        ip: 192.168.31.115
+        port: 9443
+        svrstate: UP
+      - servername: srv-log079-04
+        ip: 192.168.31.116
+        port: 9443
+        svrstate: UP
+
+  - name: sp-NTP-1433-080
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ntp080-01
+        ip: 192.168.31.117
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp080-02
+        ip: 192.168.31.118
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp080-03
+        ip: 192.168.31.119
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-WEB-80-081
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-web081-01
+        ip: 192.168.31.121
+        port: 80
+        svrstate: UP
+      - servername: srv-web081-02
+        ip: 192.168.31.122
+        port: 80
+        svrstate: UP
+
+  - name: sp-API-443-082
+    servicetype: SSL
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-api082-01
+        ip: 192.168.31.125
+        port: 443
+        svrstate: UP
+      - servername: srv-api082-02
+        ip: 192.168.31.126
+        port: 443
+        svrstate: UP
+      - servername: srv-api082-03
+        ip: 192.168.31.127
+        port: 443
+        svrstate: UP
+
+  - name: sp-DB-8080-083
+    servicetype: TCP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-db083-01
+        ip: 192.168.31.129
+        port: 8080
+        svrstate: UP
+      - servername: srv-db083-02
+        ip: 192.168.31.130
+        port: 8080
+        svrstate: UP
+      - servername: srv-db083-03
+        ip: 192.168.31.131
+        port: 8080
+        svrstate: UP
+
+  - name: sp-APP-5061-084
+    servicetype: SSL_TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-app084-01
+        ip: 192.168.31.133
+        port: 5061
+        svrstate: UP
+      - servername: srv-app084-02
+        ip: 192.168.31.134
+        port: 5061
+        svrstate: UP
+
+  - name: sp-AUTH-8443-085
+    servicetype: HTTP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-auth085-01
+        ip: 192.168.31.137
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth085-02
+        ip: 192.168.31.138
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth085-03
+        ip: 192.168.31.139
+        port: 8443
+        svrstate: UP
+      - servername: srv-auth085-04
+        ip: 192.168.31.140
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PROXY-3389-086
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-proxy086-01
+        ip: 192.168.31.141
+        port: 3389
+        svrstate: UP
+      - servername: srv-proxy086-02
+        ip: 192.168.31.142
+        port: 3389
+        svrstate: UP
+      - servername: srv-proxy086-03
+        ip: 192.168.31.143
+        port: 3389
+        svrstate: UP
+
+  - name: sp-CACHE-514-087
+    servicetype: UDP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-cache087-01
+        ip: 192.168.31.145
+        port: 514
+        svrstate: UP
+      - servername: srv-cache087-02
+        ip: 192.168.31.146
+        port: 514
+        svrstate: UP
+      - servername: srv-cache087-03
+        ip: 192.168.31.147
+        port: 514
+        svrstate: UP
+      - servername: srv-cache087-04
+        ip: 192.168.31.148
+        port: 514
+        svrstate: UP
+
+  - name: sp-MAIL-8000-088
+    servicetype: HTTP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-mail088-01
+        ip: 192.168.31.149
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail088-02
+        ip: 192.168.31.150
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail088-03
+        ip: 192.168.31.151
+        port: 8000
+        svrstate: UP
+      - servername: srv-mail088-04
+        ip: 192.168.31.152
+        port: 8000
+        svrstate: UP
+
+  - name: sp-VPN-9443-089
+    servicetype: SSL
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-vpn089-01
+        ip: 192.168.31.153
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn089-02
+        ip: 192.168.31.154
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn089-03
+        ip: 192.168.31.155
+        port: 9443
+        svrstate: UP
+      - servername: srv-vpn089-04
+        ip: 192.168.31.156
+        port: 9443
+        svrstate: UP
+
+  - name: sp-MON-1433-090
+    servicetype: TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mon090-01
+        ip: 192.168.31.157
+        port: 1433
+        svrstate: UP
+      - servername: srv-mon090-02
+        ip: 192.168.31.158
+        port: 1433
+        svrstate: DOWN
+
+  - name: sp-SIP-80-091
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-sip091-01
+        ip: 192.168.31.161
+        port: 80
+        svrstate: UP
+      - servername: srv-sip091-02
+        ip: 192.168.31.162
+        port: 80
+        svrstate: UP
+      - servername: srv-sip091-03
+        ip: 192.168.31.163
+        port: 80
+        svrstate: UP
+      - servername: srv-sip091-04
+        ip: 192.168.31.164
+        port: 80
+        svrstate: UP
+
+  - name: sp-LDAP-443-092
+    servicetype: SSL
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ldap092-01
+        ip: 192.168.31.165
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap092-02
+        ip: 192.168.31.166
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap092-03
+        ip: 192.168.31.167
+        port: 443
+        svrstate: UP
+      - servername: srv-ldap092-04
+        ip: 192.168.31.168
+        port: 443
+        svrstate: UP
+
+  - name: sp-RADIUS-8080-093
+    servicetype: TCP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-radius093-01
+        ip: 192.168.31.169
+        port: 8080
+        svrstate: UP
+      - servername: srv-radius093-02
+        ip: 192.168.31.170
+        port: 8080
+        svrstate: UP
+
+  - name: sp-MGMT-5061-094
+    servicetype: SSL_TCP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-mgmt094-01
+        ip: 192.168.31.173
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt094-02
+        ip: 192.168.31.174
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt094-03
+        ip: 192.168.31.175
+        port: 5061
+        svrstate: UP
+      - servername: srv-mgmt094-04
+        ip: 192.168.31.176
+        port: 5061
+        svrstate: UP
+
+  - name: sp-STREAM-8443-095
+    servicetype: HTTP
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-stream095-01
+        ip: 192.168.31.177
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream095-02
+        ip: 192.168.31.178
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream095-03
+        ip: 192.168.31.179
+        port: 8443
+        svrstate: UP
+      - servername: srv-stream095-04
+        ip: 192.168.31.180
+        port: 8443
+        svrstate: DOWN
+
+  - name: sp-PRINT-3389-096
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-print096-01
+        ip: 192.168.31.181
+        port: 3389
+        svrstate: UP
+      - servername: srv-print096-02
+        ip: 192.168.31.182
+        port: 3389
+        svrstate: UP
+
+  - name: sp-FILE-514-097
+    servicetype: UDP
+    lbmethod: ROUNDROBIN
+    members:
+      - servername: srv-file097-01
+        ip: 192.168.31.185
+        port: 514
+        svrstate: UP
+      - servername: srv-file097-02
+        ip: 192.168.31.186
+        port: 514
+        svrstate: UP
+
+  - name: sp-BACKUP-8000-098
+    servicetype: HTTP
+    lbmethod: LEASTCONNECTION
+    members:
+      - servername: srv-backup098-01
+        ip: 192.168.31.189
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup098-02
+        ip: 192.168.31.190
+        port: 8000
+        svrstate: UP
+      - servername: srv-backup098-03
+        ip: 192.168.31.191
+        port: 8000
+        svrstate: UP
+
+  - name: sp-LOG-9443-099
+    servicetype: SSL
+    lbmethod: LEASTRESPONSETIME
+    members:
+      - servername: srv-log099-01
+        ip: 192.168.31.193
+        port: 9443
+        svrstate: UP
+      - servername: srv-log099-02
+        ip: 192.168.31.194
+        port: 9443
+        svrstate: UP
+      - servername: srv-log099-03
+        ip: 192.168.31.195
+        port: 9443
+        svrstate: UP
+
+  - name: sp-NTP-1433-100
+    servicetype: TCP
+    lbmethod: SOURCEIPHASH
+    members:
+      - servername: srv-ntp100-01
+        ip: 192.168.31.197
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp100-02
+        ip: 192.168.31.198
+        port: 1433
+        svrstate: UP
+      - servername: srv-ntp100-03
+        ip: 192.168.31.199
+        port: 1433
+        svrstate: DOWN

@@ -124,6 +124,46 @@ class NetScalerAdapter(TmosBase):
     # ------------------------------------------------------------------
     # TmosBase implementation
     # ------------------------------------------------------------------
+    def _bulk_vs_sg_map(self):
+        """Fetch all lbvserver→servicegroup bindings in one call (count field on lbvserver)."""
+        # NetScaler NITRO supports ?attrs=name,servicegroupname on the binding endpoint
+        # but not a global list — we use the lbvserver list which includes 'lbvstype' etc.
+        # Fastest: re-use already-fetched lbvserver data and parse 'lbvserver' servicegroupname
+        # field if present, otherwise fall back to per-VS call only for missing entries.
+        vs_list = self._nitro_get("lbvserver").get("lbvserver", [])
+        sg_map = {}
+        missing = []
+        for vs in vs_list:
+            name = vs.get("name", "")
+            # Some NITRO versions return servicegroupname inline on the lbvserver object
+            inline_sg = vs.get("servicegroupname", "")
+            if inline_sg:
+                sg_map[name] = inline_sg
+            else:
+                missing.append(name)
+        # For VIPs without inline binding, fetch all bindings in parallel-ish
+        # using a single bulk binding call if NITRO supports it, else individual
+        if missing:
+            # Try bulk: GET lbvserver_servicegroup_binding (no vsname = all bindings)
+            bulk = self._nitro_get("lbvserver_servicegroup_binding").get(
+                "lbvserver_servicegroup_binding", [])
+            if bulk:
+                for b in bulk:
+                    vn = b.get("name", "")
+                    sg = b.get("servicegroupname", "")
+                    if vn and sg:
+                        sg_map[vn] = sg
+            else:
+                # Last resort: individual calls only for still-missing entries
+                for name in missing:
+                    if name not in sg_map:
+                        bindings = self._nitro_get(
+                            f"lbvserver_servicegroup_binding/{name}"
+                        ).get("lbvserver_servicegroup_binding", [])
+                        if bindings:
+                            sg_map[name] = bindings[0]["servicegroupname"]
+        return sg_map
+
     def get_virtuals(self):
         """Return list of F5 virtual_server dicts from NetScaler lbvservers."""
         data     = self._nitro_get("lbvserver")
@@ -133,6 +173,10 @@ class NetScalerAdapter(TmosBase):
 
         # Filter out CPX internal system vservers (DNS, management)
         vservers = [v for v in vservers if not v.get('name','').startswith('cpx_default_')]
+
+        # Bulk-fetch all VS→SG bindings in one shot instead of N serial calls
+        sg_map = self._bulk_vs_sg_map()
+
         for vs in vservers:
             name    = vs.get("name", "")
             ip      = vs.get("ipv46", vip_ip)
@@ -142,11 +186,7 @@ class NetScalerAdapter(TmosBase):
             svctype = vs.get("servicetype", "HTTP").lower()
             proto   = "tcp" if svctype not in ("udp",) else "udp"
 
-            # Pool name = servicegroup bound to this VS
-            sg_bindings = self._nitro_get(
-                f"lbvserver_servicegroup_binding/{name}"
-            ).get("lbvserver_servicegroup_binding", [])
-            pool_name = sg_bindings[0]["servicegroupname"] if sg_bindings else f"{name}-pool"
+            pool_name = sg_map.get(name, f"{name}-pool")
 
             desc = comment or f"{name.replace('-', ' ').replace('_', ' ').title()} VIP"
             v = virtual_server(
@@ -168,20 +208,16 @@ class NetScalerAdapter(TmosBase):
         data   = self._nitro_get("servicegroup")
         groups = data.get("servicegroup", [])
 
-        # Build vserver lb_method lookup keyed by bound servicegroup name
+        # Build vserver lb_method lookup — use bulk binding fetch (no N serial calls)
         vserver_lb = {}
         vs_data = self._nitro_get("lbvserver")
+        sg_map  = self._bulk_vs_sg_map()
         for vs in vs_data.get("lbvserver", []):
             vsname = vs.get("name", "")
             lb_raw = vs.get("lbmethod", "ROUNDROBIN")
-            # Get bound servicegroups for this vserver
-            sg_bindings = self._nitro_get(
-                f"lbvserver_servicegroup_binding/{vsname}"
-            ).get("lbvserver_servicegroup_binding", [])
-            for b in sg_bindings:
-                sgname = b.get("servicegroupname", "")
-                if sgname:
-                    vserver_lb[sgname] = lb_raw
+            sgname = sg_map.get(vsname, "")
+            if sgname:
+                vserver_lb[sgname] = lb_raw
 
         pools  = []
 
@@ -196,11 +232,8 @@ class NetScalerAdapter(TmosBase):
             monitor   = "https" if svctype in ("ssl", "https") else "http"
             comment   = sg.get("comment", "")
 
-            # Count members
-            mbr_data = self._nitro_get(
-                f"servicegroup_servicegroupmember_binding/{name}"
-            )
-            members  = mbr_data.get("servicegroup_servicegroupmember_binding", [])
+            # Skip per-SG member count call — count is fetched lazily on get_pool_members
+            members = []
 
             p = pool(
                 name        = name,

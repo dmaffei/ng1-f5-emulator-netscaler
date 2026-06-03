@@ -33,8 +33,20 @@ def load_config():
     with open(CONFIG_FILE) as f:
         return yaml.safe_load(f)
 
+_config_cache = None
+_config_mtime = 0.0
+
 def cfg():
-    return load_config()  # reload on every request — no rebuild needed after edits
+    global _config_cache, _config_mtime
+    import os
+    mtime = os.path.getmtime(CONFIG_FILE)
+    if _config_cache is None or mtime != _config_mtime:
+        _config_cache = load_config()
+        _config_mtime = mtime
+        log.info("Config reloaded — %d vservers, %d servicegroups",
+                 len(_config_cache.get("lbvservers", [])),
+                 len(_config_cache.get("servicegroups", [])))
+    return _config_cache
 
 # ── session store ─────────────────────────────────────────────────────────────
 
@@ -200,3 +212,21 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 9080))
     log.info("netscaler-vip-emulator-for-ng1 starting on port %d", port)
     uvicorn.run("mock_nitro:app", host="0.0.0.0", port=port, log_level="info")
+
+
+@app.get("/nitro/v1/config/lbvserver_servicegroup_binding")
+def get_all_lbvserver_sg_bindings(request: Request):
+    """Bulk endpoint — returns ALL VS→SG bindings in one call."""
+    _check_auth(request)
+    data = cfg()
+    bindings = []
+    for vs in data.get("lbvservers", []):
+        if vs.get("servicegroup"):
+            bindings.append({
+                "name":             vs["name"],
+                "servicegroupname": vs["servicegroup"],
+                "weight":           "1",
+            })
+    log.info("GET lbvserver_servicegroup_binding (bulk) — %d bindings", len(bindings))
+    return {"errorcode": 0, "message": "Done", "severity": "NONE",
+            "lbvserver_servicegroup_binding": bindings}
