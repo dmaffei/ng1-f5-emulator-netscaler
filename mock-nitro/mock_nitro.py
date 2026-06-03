@@ -215,9 +215,11 @@ if __name__ == "__main__":
 
 
 @app.get("/nitro/v1/config/lbvserver_servicegroup_binding")
-def get_all_lbvserver_sg_bindings(request: Request):
-    """Bulk endpoint — returns ALL VS→SG bindings in one call."""
+def get_all_lbvserver_sg_bindings(request: Request, bulkbindings: str = None):
+    """Bulk endpoint — returns ALL VS→SG bindings in one call (requires bulkbindings=yes)."""
     _check_auth(request)
+    if bulkbindings != "yes":
+        return {"errorcode": 1238, "message": "No such resource", "severity": "ERROR"}
     data = cfg()
     bindings = []
     for vs in data.get("lbvservers", []):

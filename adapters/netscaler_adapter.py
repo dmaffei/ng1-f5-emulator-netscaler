@@ -145,7 +145,7 @@ class NetScalerAdapter(TmosBase):
         # using a single bulk binding call if NITRO supports it, else individual
         if missing:
             # Try bulk: GET lbvserver_servicegroup_binding (no vsname = all bindings)
-            bulk = self._nitro_get("lbvserver_servicegroup_binding").get(
+            bulk = self._nitro_get("lbvserver_servicegroup_binding", params={"bulkbindings": "yes"}).get(
                 "lbvserver_servicegroup_binding", [])
             if bulk:
                 for b in bulk:
