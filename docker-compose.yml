@@ -1,0 +1,20 @@
+services:
+
+  tmos-shim-netscaler:
+    build: .
+    container_name: tmos-shim-netscaler
+    restart: unless-stopped
+    ports:
+      - "${TMOS_HOST_IP}:8446:8443"
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./backends/netscaler.yml:/app/backends.yml:ro
+    env_file: [ .env ]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD","python","-c","import urllib.request,ssl; ctx=ssl.create_default_context(); ctx.check_hostname=False; ctx.verify_mode=ssl.CERT_NONE; urllib.request.urlopen('https://localhost:8443/',context=ctx)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

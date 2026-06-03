@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+backends/netscaler.yml
+certs/*.pem
+certs/*.key
+certs/*.csr

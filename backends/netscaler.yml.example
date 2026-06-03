@@ -1,0 +1,12 @@
+# NetScaler NITRO API backend
+# Used by: tmos-shim-netscaler container (port 8446)
+# nG1 BIG-IP Discovery: Host=<shim-host> Port=8446 Name=netscaler-proxy
+
+netscaler:
+  type: netscaler
+  host: 192.168.30.35      # NetScaler CPX/VPX management IP
+  port: 9080               # NITRO port (CPX HTTP: 9080, VPX HTTPS: 443)
+  ssl: false               # true for VPX HTTPS
+  username: nsroot
+  password: nsroot
+  vip_host: 192.168.30.35  # IP nG1 will see for VIPs

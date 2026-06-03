@@ -1,0 +1,7 @@
+# backends.yml — adapter loader notes
+#
+# This emulator runs one container with the NetScaler NITRO adapter:
+#   tmos-shim-netscaler  → port 8446 → NetScaler CPX or VPX
+#
+# In nG1 BIG-IP Discovery, register:
+#   Host: <shim-host>  Port: 8446  Name: netscaler-proxy
