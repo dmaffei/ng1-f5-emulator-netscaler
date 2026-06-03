@@ -161,7 +161,7 @@ class NetScalerAdapter(TmosBase):
             virtuals.append(v)
 
         logger.info(f"[netscaler] Discovered {len(virtuals)} virtual server(s)")
-        return virtuals
+        return {"kind": "tm:ltm:virtual:virtualcollectionstats", "items": virtuals}
 
     def get_pools(self):
         """Return list of F5 pool dicts from NetScaler servicegroups."""
@@ -213,9 +213,9 @@ class NetScalerAdapter(TmosBase):
             pools.append(p)
 
         logger.info(f"[netscaler] Discovered {len(pools)} pool(s)")
-        return pools
+        return {"kind": "tm:ltm:pool:poolcollectionstats", "items": pools}
 
-    def get_members(self, pool_name):
+    def get_pool_members(self, pool_name):
         """Return list of F5 pool_member dicts from NetScaler servicegroup members."""
         data    = self._nitro_get(
             f"servicegroup_servicegroupmember_binding/{pool_name}"
@@ -240,4 +240,4 @@ class NetScalerAdapter(TmosBase):
             logger.warning(f"[netscaler] No members for pool '{pool_name}'")
 
         logger.info(f"[netscaler] Pool {pool_name}: {len(members)} member(s)")
-        return members
+        return {"kind": "tm:ltm:pool:members:memberscollectionstats", "items": members}

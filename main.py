@@ -171,6 +171,11 @@ async def f5_login(request: Request):
     }
 
 
+@app.get("/health")
+def health_unauthed():
+    return {"status": "ok", "adapter": ADAPTER_NAME or "none"}
+
+
 @app.get("/")
 def index(auth: HTTPBasicCredentials = Depends(require_auth)):
     return {

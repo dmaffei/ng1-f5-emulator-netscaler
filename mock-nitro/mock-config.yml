@@ -1,0 +1,90 @@
+# netscaler-vip-emulator-for-ng1 — mock VPX data
+# Edit VIPs/pools/members here; no rebuild needed (volume-mounted)
+
+nsip: 192.168.30.150
+
+lbvservers:
+  - name: vip-WEB-80
+    ipv46: 10.10.20.10
+    port: 80
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "Web frontend VIP"
+    servicegroup: sp-WEB-80
+
+  - name: vip-API-443
+    ipv46: 10.10.20.11
+    port: 443
+    servicetype: SSL
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "API gateway VIP"
+    servicegroup: sp-API-443
+
+  - name: vip-OMNIS-8080
+    ipv46: 10.10.20.20
+    port: 8080
+    servicetype: HTTP
+    curstate: UP
+    lbmethod: ROUNDROBIN
+    comment: "OMNIS dashboard VIP"
+    servicegroup: sp-OMNIS-8080
+
+  - name: vip-SKYPE-5061
+    ipv46: 10.10.20.30
+    port: 5061
+    servicetype: SSL_TCP
+    curstate: UP
+    lbmethod: LEASTCONNECTION
+    comment: "Skype for Business SIP/TLS VIP"
+    servicegroup: sp-SKYPE-5061
+
+servicegroups:
+  - name: sp-WEB-80
+    servicetype: HTTP
+    members:
+      - servername: web1
+        ip: 192.168.30.101
+        port: 80
+        svrstate: UP
+      - servername: web2
+        ip: 192.168.30.102
+        port: 80
+        svrstate: UP
+
+  - name: sp-API-443
+    servicetype: SSL
+    members:
+      - servername: api1
+        ip: 192.168.30.110
+        port: 443
+        svrstate: UP
+      - servername: api2
+        ip: 192.168.30.111
+        port: 443
+        svrstate: DOWN
+
+  - name: sp-OMNIS-8080
+    servicetype: HTTP
+    members:
+      - servername: omnis1
+        ip: 192.168.30.32
+        port: 8080
+        svrstate: UP
+      - servername: omnis2
+        ip: 192.168.30.33
+        port: 8080
+        svrstate: UP
+
+  - name: sp-SKYPE-5061
+    servicetype: SSL_TCP
+    members:
+      - servername: sfb1
+        ip: 192.168.30.120
+        port: 5061
+        svrstate: UP
+      - servername: sfb2
+        ip: 192.168.30.121
+        port: 5061
+        svrstate: UP

@@ -1,12 +1,11 @@
-# NetScaler NITRO API backend
-# Used by: tmos-shim-netscaler container (port 8446)
-# nG1 BIG-IP Discovery: Host=<shim-host> Port=8446 Name=netscaler-proxy
+# NetScaler NITRO backend — points at mock-nitro container
+# Switch host/port/ssl to target a real VPX when available
 
 netscaler:
   type: netscaler
-  host: 192.168.30.35      # NetScaler CPX/VPX management IP
-  port: 9080               # NITRO port (CPX HTTP: 9080, VPX HTTPS: 443)
-  ssl: false               # true for VPX HTTPS
+  host: mock-nitro       # Docker service name; use real VPX IP for production
+  port: 9080
+  ssl: false
   username: nsroot
   password: nsroot
-  vip_host: 192.168.30.35  # IP nG1 will see for VIPs
+  vip_host: 192.168.30.32  # IP nG1 will see for VIPs (this host)
