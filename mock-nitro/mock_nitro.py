@@ -232,3 +232,28 @@ def get_all_lbvserver_sg_bindings(request: Request, bulkbindings: str = None):
     log.info("GET lbvserver_servicegroup_binding (bulk) — %d bindings", len(bindings))
     return {"errorcode": 0, "message": "Done", "severity": "NONE",
             "lbvserver_servicegroup_binding": bindings}
+
+
+@app.get("/nitro/v1/config/servicegroup_servicegroupmember_binding")
+def get_all_sg_members(request: Request, bulkbindings: str = None):
+    """Bulk endpoint — returns ALL servicegroup members in one call (requires bulkbindings=yes)."""
+    _check_auth(request)
+    if bulkbindings != "yes":
+        return {"errorcode": 1238, "message": "No such resource", "severity": "ERROR"}
+    data = cfg()
+    members = []
+    for sg in data.get("servicegroups", []):
+        sgname = sg["name"]
+        for m in sg.get("members", []):
+            members.append({
+                "servicegroupname": sgname,
+                "servername":       m.get("servername", ""),
+                "ip":               m.get("ip", ""),
+                "port":             m.get("port", 80),
+                "svrstate":         m.get("svrstate", "UP"),
+                "curstate":         m.get("svrstate", "UP"),
+                "weight":           "1",
+            })
+    log.info("GET servicegroup_servicegroupmember_binding (bulk) — %d members", len(members))
+    return {"errorcode": 0, "message": "Done", "severity": "NONE",
+            "servicegroup_servicegroupmember_binding": members}

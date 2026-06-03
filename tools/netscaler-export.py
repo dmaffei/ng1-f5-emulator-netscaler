@@ -112,16 +112,33 @@ def collect(base_url, sessid, verify_ssl, timeout):
     raw_vs = [v for v in raw_vs if not _skip(v.get("name", ""))]
     print(f"    Found {len(raw_vs)} lbvserver(s)")
 
-    # ── servicegroup binding per vserver ──────────────────────────────────────
+    # ── servicegroup binding — bulk fetch (one call for all VIPs) ────────────
+    print("[*] Fetching VS→SG bindings (bulk)...")
     vs_to_sg = {}
-    for vs in raw_vs:
-        vsname = vs["name"]
-        bindings = nitro_get(
-            base_url, f"lbvserver_servicegroup_binding/{vsname}",
-            sessid, verify_ssl, timeout
-        ).get("lbvserver_servicegroup_binding", [])
-        if bindings:
-            vs_to_sg[vsname] = bindings[0]["servicegroupname"]
+    bulk = nitro_get(
+        base_url, "lbvserver_servicegroup_binding",
+        sessid, verify_ssl, timeout,
+        params={"bulkbindings": "yes"}
+    ).get("lbvserver_servicegroup_binding", [])
+    if bulk:
+        for b in bulk:
+            vn = b.get("name", "")
+            sg = b.get("servicegroupname", "")
+            if vn and sg:
+                vs_to_sg[vn] = sg
+        print(f"    Bulk fetch OK — {len(vs_to_sg)} binding(s)")
+    else:
+        # Fallback: per-VIP calls (older NITRO versions without bulkbindings support)
+        print("[!] Bulk fetch returned empty — falling back to per-VIP calls")
+        for vs in raw_vs:
+            vsname = vs["name"]
+            bindings = nitro_get(
+                base_url, f"lbvserver_servicegroup_binding/{vsname}",
+                sessid, verify_ssl, timeout
+            ).get("lbvserver_servicegroup_binding", [])
+            if bindings:
+                vs_to_sg[vsname] = bindings[0]["servicegroupname"]
+        print(f"    Per-VIP fallback — {len(vs_to_sg)} binding(s)")
 
     # ── servicegroups ─────────────────────────────────────────────────────────
     print("[*] Fetching servicegroups...")
@@ -138,25 +155,43 @@ def collect(base_url, sessid, verify_ssl, timeout):
         if sg_name:
             sg_lb[sg_name] = lb_raw
 
-    # ── members per servicegroup ──────────────────────────────────────────────
-    print("[*] Fetching servicegroup members...")
+    # ── members — bulk fetch all SG members in one call ──────────────────────
+    print("[*] Fetching servicegroup members (bulk)...")
     sg_members = {}
-    for sg in raw_sg:
-        sgname = sg["servicegroupname"]
-        mbr_data = nitro_get(
-            base_url, f"servicegroup_servicegroupmember_binding/{sgname}",
-            sessid, verify_ssl, timeout
-        ).get("servicegroup_servicegroupmember_binding", [])
-        members = []
-        for m in mbr_data:
-            members.append({
+    bulk_mbr = nitro_get(
+        base_url, "servicegroup_servicegroupmember_binding",
+        sessid, verify_ssl, timeout,
+        params={"bulkbindings": "yes"}
+    ).get("servicegroup_servicegroupmember_binding", [])
+    if bulk_mbr:
+        for m in bulk_mbr:
+            sgname = m.get("servicegroupname", "")
+            if sgname not in sg_members:
+                sg_members[sgname] = []
+            sg_members[sgname].append({
                 "servername": m.get("servername", m.get("ip", "")),
                 "ip":         m.get("ip", ""),
                 "port":       int(m.get("port", 80)),
                 "svrstate":   (m.get("svrstate") or m.get("curstate") or "UNKNOWN").upper(),
             })
-        sg_members[sgname] = members
-        print(f"    {sgname}: {len(members)} member(s)")
+        total = sum(len(v) for v in sg_members.values())
+        print(f"    Bulk fetch OK — {total} member(s) across {len(sg_members)} servicegroup(s)")
+    else:
+        # Fallback: per-SG calls
+        print("[!] Bulk fetch empty — falling back to per-SG calls")
+        for sg in raw_sg:
+            sgname = sg["servicegroupname"]
+            mbr_data = nitro_get(
+                base_url, f"servicegroup_servicegroupmember_binding/{sgname}",
+                sessid, verify_ssl, timeout
+            ).get("servicegroup_servicegroupmember_binding", [])
+            sg_members[sgname] = [{
+                "servername": m.get("servername", m.get("ip", "")),
+                "ip":         m.get("ip", ""),
+                "port":       int(m.get("port", 80)),
+                "svrstate":   (m.get("svrstate") or m.get("curstate") or "UNKNOWN").upper(),
+            } for m in mbr_data]
+            print(f"    {sgname}: {len(sg_members[sgname])} member(s)")
 
     # ── assemble output ───────────────────────────────────────────────────────
     lbvservers = []
