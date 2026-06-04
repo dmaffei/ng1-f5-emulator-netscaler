@@ -46,7 +46,7 @@ class NetScalerAdapter(TmosBase):
 
     def __init__(self, nitro_url="http://localhost:9080", vip_host="localhost",
                  nitro_user="nsroot", nitro_pass="nsroot",
-                 username="admin", password="admin", timeout=10):
+                 username="admin", password="admin", timeout=10, verify_ssl=True):
         super().__init__(username=username, password=password)
         self.nitro_url  = nitro_url.rstrip("/")
         self.vip_host   = vip_host
@@ -54,6 +54,14 @@ class NetScalerAdapter(TmosBase):
         self.nitro_pass = nitro_pass
         self.timeout    = timeout
         self._sessid    = None
+        self._ctx       = None
+        if nitro_url.startswith("https"):
+            import ssl as _ssl
+            ctx = _ssl.SSLContext(_ssl.PROTOCOL_TLS_CLIENT)
+            ctx.check_hostname = False
+            ctx.verify_mode = _ssl.CERT_NONE
+            ctx.set_ciphers("HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK")
+            self._ctx = ctx
         logger.info(f"[netscaler] Adapter init — NITRO at {self.nitro_url}")
 
     # ------------------------------------------------------------------
@@ -67,7 +75,7 @@ class NetScalerAdapter(TmosBase):
         req  = urllib.request.Request(url, data=body, method="POST")
         req.add_header("Content-Type", "application/json")
         try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+            with urllib.request.urlopen(req, context=self._ctx, timeout=self.timeout) as resp:
                 r = json.loads(resp.read())
                 if r.get("errorcode") == 0:
                     self._sessid = r["sessionid"]
@@ -90,7 +98,7 @@ class NetScalerAdapter(TmosBase):
         req.add_header("Cookie", f"sessionid={self._sessid}")
         req.add_header("Content-Type", "application/json")
         try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+            with urllib.request.urlopen(req, context=self._ctx, timeout=self.timeout) as resp:
                 return json.loads(resp.read())
         except urllib.error.HTTPError as e:
             if e.code == 403:
@@ -115,7 +123,7 @@ class NetScalerAdapter(TmosBase):
         req.add_header("Cookie", f"sessionid={self._sessid}")
         req.add_header("Content-Type", "application/json")
         try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+            with urllib.request.urlopen(req, context=self._ctx, timeout=self.timeout) as resp:
                 return json.loads(resp.read())
         except Exception as e:
             logger.error(f"[netscaler] NITRO STAT {resource} error: {e}")

@@ -108,6 +108,7 @@ def load_adapter():
                 vip_host=conf.get("vip_host", host),
                 nitro_user=conf.get("username", "nsroot"),
                 nitro_pass=conf.get("password", "nsroot"),
+                verify_ssl=conf.get("verify_ssl", True),
             )
         else:
             log.error("Unknown adapter type: %s", btype)
