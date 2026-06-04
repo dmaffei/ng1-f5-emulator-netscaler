@@ -101,7 +101,7 @@ class NetScalerAdapter(TmosBase):
             with urllib.request.urlopen(req, context=self._ctx, timeout=self.timeout) as resp:
                 return json.loads(resp.read())
         except urllib.error.HTTPError as e:
-            if e.code == 403:
+            if e.code in (401, 403):
                 # Session expired — re-login once
                 logger.warning("[netscaler] Session expired, re-logging in")
                 self._sessid = None

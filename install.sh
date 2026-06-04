@@ -199,57 +199,55 @@ ask "Password [netscout1]: "
 read -r NG1_PASS; NG1_PASS="${NG1_PASS:-netscout1}"
 info "nG1 credentials: $NG1_USER / $NG1_PASS"
 
-# ── Step 7: Backend selection ─────────────────────────────────────
-step "Step 7 — Backend adapter"
+# ── Step 7: NetScaler CPX/VPX configuration ─────────────────────────────────
+step "Step 7 — NetScaler CPX/VPX configuration"
 info "Using NetScaler adapter (port 8446)"
-ENABLE_A10=true
 
-# ── Step 8: A10 config ────────────────────────────────────────────
-if $ENABLE_A10; then
-    step "Step 8a — NetScaler CPX/VPX configuration"
-    ask "A10 host IP: "
-    read -r A10_HOST
-    [ -z "$A10_HOST" ] && error "A10 host IP is required"
-    ask "NetScaler NITRO port [443]: "
-    read -r A10_PORT; A10_PORT="${A10_PORT:-443}"
-    ask "A10 username [admin]: "
-    read -r A10_USER; A10_USER="${A10_USER:-admin}"
-    ask "A10 password: "
-    read -rs A10_PASS; echo
-    [ -z "$A10_PASS" ] && error "A10 password is required"
+ask "NetScaler host IP or hostname: "
+read -r NS_HOST
+[ -z "$NS_HOST" ] && error "NetScaler host IP is required"
 
-    # Test connectivity
-    ask "Test A10 connectivity now? [Y/n]: "
-    read -r REPLY
-    if [[ "${REPLY:-Y}" =~ ^[Yy]$ ]]; then
-        echo "Testing AXAPI connection..."
-        HTTP=$(curl -sk -o /dev/null -w "%{http_code}" --max-time 5 \
-            -X POST "https://$A10_HOST:$A10_PORT/axapi/v3/auth" \
-            -H "Content-Type: application/json" \
-            -d "{\"credentials\":{\"username\":\"$A10_USER\",\"password\":\"$A10_PASS\",\"method\":\"local\"}}")
-        if [ "$HTTP" == "200" ]; then
-            info "NetScaler NITRO reachable and credentials valid"
-        else
-            warn "NetScaler NITRO returned HTTP $HTTP — check host/credentials"
-            ask "Continue anyway? [y/N]: "
-            read -r REPLY
-            [[ "${REPLY}" =~ ^[Yy]$ ]] || error "Fix A10 connectivity and re-run"
-        fi
+ask "NetScaler NITRO port [443]: "
+read -r NS_PORT; NS_PORT="${NS_PORT:-443}"
+
+ask "NetScaler username [nsroot]: "
+read -r NS_USER; NS_USER="${NS_USER:-nsroot}"
+
+ask "NetScaler password: "
+read -rs NS_PASS; echo
+[ -z "$NS_PASS" ] && error "NetScaler password is required"
+
+ask "Test NITRO connectivity now? [Y/n]: "
+read -r REPLY
+if [[ "${REPLY:-Y}" =~ ^[Yy]$ ]]; then
+    echo "Testing NITRO connection..."
+    HTTP=$(curl -sk -o /dev/null -w "%{http_code}" --max-time 5 --tlsv1.2 \
+        -X POST "https://$NS_HOST:$NS_PORT/nitro/v1/config/login" \
+        -H "Content-Type: application/json" \
+        -d "{\"login\":{\"username\":\"$NS_USER\",\"password\":\"$NS_PASS\"}}")
+    if [ "$HTTP" == "200" ]; then
+        info "NetScaler NITRO reachable — credentials valid"
+    else
+        warn "NetScaler NITRO returned HTTP $HTTP — check host/port/credentials"
+        ask "Continue anyway? [y/N]: "
+        read -r REPLY2
+        [[ "${REPLY2}" =~ ^[Yy]$ ]] || error "Fix NetScaler connectivity and re-run"
     fi
+fi
 
-    mkdir -p backends
-    cat > backends/a10.yml << EOF2
-a10:
-  type: a10
-  host: $A10_HOST
-  port: $A10_PORT
-  username: $A10_USER
-  password: "$A10_PASS"
+mkdir -p backends
+cat > backends/netscaler.yml << EOF2
+netscaler:
+  type: netscaler
+  host: $NS_HOST
+  port: $NS_PORT
   ssl: true
   verify_ssl: false
+  username: $NS_USER
+  password: "$NS_PASS"
+  vip_host: $NS_HOST
 EOF2
-    info "backends/a10.yml written"
-fi
+info "backends/netscaler.yml written"
 
 
 # ── Step 10: Write .env ───────────────────────────────────────────
@@ -280,7 +278,7 @@ fi
 step "Step 11 — Generating docker-compose.yml"
 {
 echo "services:"
-if $ENABLE_A10; then
+if true; then
 cat << 'EOF2'
 
   tmos-shim-a10:
@@ -318,7 +316,7 @@ sleep 8
 # ── Step 14: Health check ─────────────────────────────────────────
 step "Step 13 — Health check"
 FAIL=0
-if $ENABLE_A10; then
+if true; then
     HTTP=$(curl -sk -u "$NG1_USER:$NG1_PASS" -o /dev/null -w "%{http_code}" --max-time 5 "https://$HOST_IP:8446/")
     [ "$HTTP" == "200" ] && info "A10 shim healthy → https://$HOST_IP:8446/" \
         || { warn "A10 shim HTTP $HTTP — check: docker logs tmos-shim-a10"; FAIL=1; }
@@ -335,7 +333,7 @@ echo -e "    Username       : ${BOLD}$NG1_USER${NC}"
 echo -e "    Password       : ${BOLD}$NG1_PASS${NC}"
 echo -e "    Login Provider : ${BOLD}tmos${NC}"
 echo ""
-$ENABLE_A10   && echo -e "  NetScaler adapter   →  Host: ${BOLD}$HOST_IP${NC}  Port: ${BOLD}8446${NC}"
+true   && echo -e "  NetScaler adapter   →  Host: ${BOLD}$HOST_IP${NC}  Port: ${BOLD}8446${NC}"
 echo ""
 if [ $FAIL -eq 0 ]; then
     echo -e "  ${GREEN}${BOLD}✅ All services healthy — ready for nG1 registration${NC}"

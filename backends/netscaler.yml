@@ -1,11 +1,12 @@
-# NetScaler NITRO backend — points at mock-nitro container
-# Switch host/port/ssl to target a real VPX when available
-
+# NetScaler backend — update host/credentials for your environment
+# For live VPX: set host to NSIP, ssl: true, verify_ssl: false
+# For mock emulator: set host to mock-nitro, port: 9080, ssl: false
 netscaler:
   type: netscaler
-  host: mock-nitro       # Docker service name; use real VPX IP for production
+  host: mock-nitro
   port: 9080
   ssl: false
+  verify_ssl: false
   username: nsroot
   password: nsroot
-  vip_host: 192.168.30.32  # IP nG1 will see for VIPs (this host)
+  vip_host: mock-nitro
